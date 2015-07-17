@@ -1,8 +1,14 @@
 # Psi Phi Quantum Mechanics
 
+      ___ ___  ___  __  __ 
+     | _ \ _ \/ _ \|  \/  |
+     |  _/  _/ (_) | |\/| |
+     |_| |_|  \__\_\_|  |_|
+ 
+                      
 ## Idea
 
-Easy and open quantum chemical calculations.
+Easy, open and fast quantum chemical calculations.
 
 ## Format
 
