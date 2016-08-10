@@ -40,8 +40,6 @@ contains
         close(unit=33)
         initialized = .true.
 
-        write(*,*) "init"
-
     end subroutine
 
 
@@ -120,8 +118,6 @@ contains
                     value = lines(i)(idx+1:)
                     exit
                 end if
-
-                write(*,*) value
 
             end if
 
