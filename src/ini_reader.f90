@@ -78,14 +78,10 @@ contains
         error = .false.
         found_section = .false.
 
-        write(*,*) "get", section, keyword
         value = ""
-
 
         ! Look for section
         do i=1, num_lines
-
-            write(*,*) i, found_section, lines(i)
 
             if(lines(i)(1:1) .eq. '[') then
 
