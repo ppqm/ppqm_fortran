@@ -126,5 +126,13 @@ contains
 
     end subroutine
 
+
+    subroutine ini_get_structure()
+
+        implicit none
+
+    end subroutine
+
+
 end module ini_reader
 

@@ -21,6 +21,7 @@ contains
 
     end subroutine print_usage
 
+
     subroutine print_version
 
         implicit none
@@ -52,6 +53,5 @@ contains
       write(*,*)
 
     end subroutine print_error
-
 
 end module printer

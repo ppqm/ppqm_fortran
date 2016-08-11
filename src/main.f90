@@ -67,16 +67,10 @@ program main
         write(*,*) 'No input file'
     endif
 
-
-    !
-    ! Input file
-    !
-
-    filename = "input.ini"
     call ini_set_filename(filename)
     call ini_get_value('main', 'method', method, error)
 
-    if(error.eqv..true.) then
+    if(error .eqv. .true.) then
         write(*,*) "error reading", filename
         stop
     end if
