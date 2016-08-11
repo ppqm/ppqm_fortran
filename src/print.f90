@@ -26,9 +26,16 @@ contains
         implicit none
 
         write(*,*)
-        write(*,*) "PPQM"
-        write(*,*) "Version 2016-08-11"
-        write(*,*) "Commit ab48980f31"
+        write(*,*) "Psi Phi Quantum Mechanics (PPQM)"
+        write(*,*) "www.ppqm.org"
+        write(*,*) "www.github.com/ppqm/ppqm"
+        write(*,*)
+        write(*,*) "Version: ", "2016-08-11"
+        write(*,*) "Tag: ", "0.2"
+        write(*,*) "Commit: ", "ab48980f31"
+        write(*,*)
+        write(*,*) "Cite:"
+        write(*,*) "See log file for the specific calculation"
         write(*,*)
 
     end subroutine
