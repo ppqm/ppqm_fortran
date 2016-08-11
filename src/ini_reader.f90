@@ -3,9 +3,6 @@ module ini_reader
 
     implicit none
 
-    REAL, PARAMETER :: Pi = 3.1415927
-    REAL :: radius
-
     character ini_filename*256
     data ini_filename /'input.ini'/
 

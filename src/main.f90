@@ -1,5 +1,6 @@
 program main
 
+    use printer, only: print_usage, print_error, print_version
     use ini_reader, only: ini_set_filename, ini_get_value
 
     implicit none
@@ -22,7 +23,7 @@ program main
 
     ! Arguments
     if(command_argument_count() == 0) then
-        write(*,*) "usage"
+        call print_usage
         stop
     endif
 
@@ -41,12 +42,11 @@ program main
             debug = .True.
 
         case ('-v', '--version')
-            print '(a)', ''
-            print '(2a)', 'version ', 0
+            call print_version
             stop
 
         case ('-h', '--help')
-            write(*,*) "heeeelp"
+            call print_usage
             stop
 
         case default
