@@ -70,6 +70,9 @@ contains
         character keyword*(*)
         character value*(*)
 
+        character(len=64) :: arg
+        logical exists
+
         integer i, idx
         logical found_section, found_keyword
 

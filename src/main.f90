@@ -9,15 +9,20 @@ program main
     character(len=:), allocatable :: key, val
     character(len=:), allocatable :: filename
 
+    character(len=64) :: arg
+
     logical error
+    logical debug
+    logical exists
+    logical skip
+
+    integer i
 
     character(20) :: method
 
-
-
     ! Arguments
     if(command_argument_count() == 0) then
-        call print_help()
+        write(*,*) "usage"
         stop
     endif
 
@@ -41,7 +46,7 @@ program main
             stop
 
         case ('-h', '--help')
-            call "heeeelp"
+            write(*,*) "heeeelp"
             stop
 
         case default
@@ -59,7 +64,7 @@ program main
     enddo
 
     if(filename=='')then
-        call print_error('No input file')
+        write(*,*) 'No input file'
     endif
 
 
