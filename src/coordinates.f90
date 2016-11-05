@@ -1,7 +1,7 @@
 
 module mod_coordinates
 
-    use printer, only: print_matrix
+    use printer, only: print_matrix, print_triangular
     use ini_reader, only: ini_get_structure
 
     implicit none
@@ -21,30 +21,49 @@ contains
 
         call ini_get_structure('coordinates', error, coordinates, atoms, num_atoms)
 
-        write(*,*) "Coordinates:"
-
         call print_matrix(coordinates, num_atoms, 3)
+        call set_distance_matrix(coordinates)
 
     end subroutine get_coordinates
 
 
-    subroutine set_distance_matrix(coordinates, num_atoms, distance_matrix)
+    subroutine set_distance_matrix(coordinates)
 
         implicit none
 
-        integer :: num_atoms
-        integer :: lower_tri_size
+        integer :: d
+        integer :: lower_size
 
-        double precision, dimension(num_atoms, 3) :: coordinates
+        double precision, dimension(:, :) :: coordinates
         double precision, dimension(:), allocatable :: distance_matrix
 
-        ! sizex = size(M, dim=1)
+        double precision :: distance
+        integer :: i, j, idx
 
-        lower_tri_size = (num_atoms*num_atoms+num_atoms)/2
+        ! Dimension (num of atoms)
+        d = size(coordinates, dim=1)
+        lower_size = (d*d+d)/2
+        allocate(distance_matrix(lower_size))
+        distance_matrix = 0.0d0
 
-        allocate(distance_matrix(lower_tri_size))
+        do i = 1, d
+            do j = i, d
 
+                idx = (j*j+j)/2 -j +i
 
+                distance = sqrt( &
+                    (coordinates(i,1) - coordinates(j,1))**2.0d0 + &
+                    (coordinates(i,2) - coordinates(j,2))**2.0d0 + &
+                    (coordinates(i,3) - coordinates(j,3))**2.0d0 )
+
+                distance_matrix(idx) = distance
+
+            end do
+        end do
+
+        write(*,*)
+        call print_triangular(distance_matrix, d)
+        write(*,*)
 
     end subroutine set_distance_matrix
 

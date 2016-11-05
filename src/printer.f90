@@ -122,9 +122,23 @@ contains
     end subroutine
 
 
-    subroutine print_triangular() ! tri-shape, matrix, accuracy
+    subroutine print_triangular(matrix, rows) ! tri-shape, matrix, accuracy
 
         implicit none
+
+        double precision, dimension(:) :: matrix
+        integer :: rows
+        integer :: i, j, idx
+
+        ! write(*, "(10f10.5)", advance='no')  matrix(idx-i+1:idx)
+
+        do i = 1, rows
+            idx = (i*i+i)/2
+            do j = idx-i+1, idx
+                write(*, "(10f10.5)", advance='no')  matrix(j)
+            end do
+            write(*,*) ! new line
+        end do
 
 
     end subroutine
