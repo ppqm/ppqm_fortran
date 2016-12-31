@@ -3,59 +3,64 @@ module printer
 
     implicit none
 
-
-    ! TODO /data/ all the references here
-    ! dictionary or just array ID?
+    ! TODO decide. all the references here in dictionary or just array ID and link to a folder?
 
 contains
 
     subroutine print_usage
 
+        use, intrinsic :: iso_fortran_env, only: stdout=>output_unit, stderr=>output_unit
+
         implicit none
 
-        write(*,*) ""
-        write(*,*) "usage:"
-        write(*,*) "ppqm [-h] [-d] <input file>"
-        write(*,*)
-        write(*,*) "optional arguments:"
-        write(*,*) "-v, --version         show the version number and exit"
-        write(*,*) "-h, --help            show this help message and exit"
-        write(*,*) "-d, --debug           enable debug mode"
-        write(*,*)
+        write(stdout, "(a)")
+        write(stdout, "(a)") "usage: ppqm [optional] <input file>"
+        write(stdout, "(a)")
+        write(stdout, "(a)") "optional arguments:"
+        write(stdout, "(a)") "-v, --version         show the version number and exit"
+        write(stdout, "(a)") "-h, --help            show this help message and exit"
+        write(stdout, "(a)") "-d, --debug           enable debug mode"
+        write(stdout, "(a)")
 
     end subroutine print_usage
 
 
     subroutine print_version
 
+        use, intrinsic :: iso_fortran_env, only: stdout=>output_unit, stderr=>output_unit
+
         implicit none
 
-        write(*,*)
-        write(*,*) "Psi Phi Quantum Mechanics (PPQM)"
-        write(*,*) "www.ppqm.org"
-        write(*,*) "www.github.com/ppqm/ppqm"
-        write(*,*)
-        write(*,*) "Version: ", "2016-08-11"
-        write(*,*) "Tag: ", "0.2"
-        write(*,*) "Commit: ", "ab48980f31"
-        write(*,*)
-        write(*,*) "Cite:"
-        write(*,*) "See log file for the specific calculation"
-        write(*,*)
+        write(stdout, "(a)")
+        write(stdout, "(a)") "Psi Phi Quantum Mechanics (PPQM)"
+        write(stdout, "(a)") "ppqm.org"
+        write(stdout, "(a)")
+        write(stdout, "(a)") "github.com/ppqm/ppqm"
+        write(stdout, "(a)") "Version: ", "2016-08-11"
+        write(stdout, "(a)") "Tag: ", "0.2"
+        write(stdout, "(a)") "Commit: ", "ab48980f31"
+        write(stdout, "(a)")
+        write(stdout, "(a)") "Cite:"
+        write(stdout, "(a)") "See log file for the calculation specific reference"
+        write(stdout, "(a)")
 
     end subroutine
 
 
-    subroutine print_error(msg)
+    subroutine print_error(msg, subrout)
 
-      implicit none
-      character msg*(*)
+        use, intrinsic :: iso_fortran_env, only: stdout=>output_unit, stderr=>output_unit
 
-      print '(a)', ''
-      print '(a)', 'ppqm error: ', msg
-      print '(a)', ''
-      print '(a)', 'An error has occured we are shutting down'
-      print '(a)', ''
+        implicit none
+        character :: msg*(*)
+        character, optional :: subrout*(*)
+
+        write(stderr, "(a)") 'ppqm error: ', msg
+        write(stdout, "(a)")
+        write(stdout, "(a)") 'An error has occured and computation has stopped.'
+        write(stdout, "(a)")
+
+        call exit(1)
 
     end subroutine print_error
 
@@ -106,6 +111,8 @@ contains
 
     subroutine print_matrix(matrix, rows, cols)
 
+        use, intrinsic :: iso_fortran_env, only: stdout=>output_unit, stderr=>output_unit
+
         implicit none
 
         integer :: rows
@@ -116,30 +123,32 @@ contains
         double precision, dimension(rows,cols) :: matrix
 
         do i = 1, rows
-            write(*, "(10f10.5)")  matrix(i,1:cols)
+            write(stdout, "(10f10.5)")  matrix(i,1:cols)
         end do
 
     end subroutine
 
 
-    subroutine print_triangular(matrix, rows) ! tri-shape, matrix, accuracy
+    subroutine print_triangular(matrix, rows, accuracy) ! tri-shape, matrix, accuracy
+
+        use, intrinsic :: iso_fortran_env, only: stdout=>output_unit, stderr=>output_unit
 
         implicit none
 
         double precision, dimension(:) :: matrix
         integer :: rows
-        integer :: i, j, idx
+        integer, optional :: accuracy
 
-        ! write(*, "(10f10.5)", advance='no')  matrix(idx-i+1:idx)
+        integer :: i, j, idx
 
         do i = 1, rows
             idx = (i*i+i)/2
             do j = idx-i+1, idx
-                write(*, "(10f10.5)", advance='no')  matrix(j)
+                write(stdout, "(10f10.5)", advance='no')  matrix(j)
             end do
-            write(*,*) ! new line
+            ! next line
+            write(stdout, "(a)")
         end do
-
 
     end subroutine
 
