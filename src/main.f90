@@ -76,10 +76,12 @@ program main
         stop
     end if
 
-    ! write(*,*) "using method ", method
+    write(*,*) "using method ", method
+    write(*,*)
 
 
     ! read coordinates
+    ! TODO return coordinates, atomtypes (w/ numbers)
     call get_coordinates
 
     ! TODO make all these with nice functions
