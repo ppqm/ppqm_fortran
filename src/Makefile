@@ -11,6 +11,8 @@ all:
 test:
 	cd ../test && ./test_all
 
+python:
+	f2py -c -m py_ppqm ppqm_constants.f90
 
 clean:
 	rm *.mod
