@@ -47,6 +47,27 @@ contains
 
     end subroutine
 
+
+    subroutine print_result(msg, value, unit)
+
+        use, intrinsic :: iso_fortran_env, only: stdout=>output_unit, stderr=>output_unit
+
+        implicit none
+        character :: msg*(*)
+        character :: unit*(*)
+        double precision :: value
+
+        character(len=30) :: prtmsg
+
+        write(prtmsg, '(a20)') msg
+
+        write(stderr, "(a20,f10.6,1x,a)") adjustl(prtmsg), value, unit
+
+        return
+
+    end subroutine
+
+
     subroutine print_warning(msg, subrout)
 
         use, intrinsic :: iso_fortran_env, only: stdout=>output_unit, stderr=>output_unit
