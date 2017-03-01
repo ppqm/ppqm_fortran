@@ -76,9 +76,7 @@ contains
         character :: msg*(*)
         character, optional :: subrout*(*)
 
-        write(stdout, "(a)")
         write(stderr, "(3a)") 'ppqm warning: ', subrout, msg
-        write(stdout, "(a)")
 
         return
 
