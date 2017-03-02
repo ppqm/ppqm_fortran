@@ -47,6 +47,34 @@ contains
 
     end subroutine
 
+    subroutine print_headline(level, headline)
+
+        use, intrinsic :: iso_fortran_env, only: stdout=>output_unit, stderr=>output_unit
+
+        implicit none
+        character :: headline*(*)
+        integer :: level
+
+        write(stdout,*)
+        write(stdout, "(a,x,a)") repeat("#", level), headline
+        write(stdout,*)
+
+        return
+
+    end subroutine
+
+    subroutine print_string(msg)
+
+        use, intrinsic :: iso_fortran_env, only: stdout=>output_unit, stderr=>output_unit
+
+        implicit none
+        character :: msg*(*)
+
+        write(stdout, "(a)") msg
+
+        return
+
+    end subroutine
 
     subroutine print_result(msg, value, unit)
 

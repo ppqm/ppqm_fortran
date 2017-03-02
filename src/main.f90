@@ -1,6 +1,12 @@
 program main
 
-    use printer, only: print_usage, print_error, print_version, print_result
+    use printer, only: print_usage, &
+                    print_error, &
+                    print_version, &
+                    print_result, &
+                    print_string, &
+                    print_headline
+
     use ini_reader, only: ini_set_filename, ini_get_value, ini_get_structure
     use mod_coordinates, only: get_coordinates
 
@@ -21,6 +27,8 @@ program main
     integer i
 
     character(20) :: method
+
+    call print_headline(1, "Psi Phi Quantum Mechanics")
 
     ! Arguments
     if(command_argument_count() == 0) then
@@ -76,12 +84,14 @@ program main
         stop
     end if
 
+    call print_headline(2, "Calculation details")
     write(*,*) "using method ", method
     write(*,*)
 
 
     ! read coordinates
     ! TODO return coordinates, atomtypes (w/ numbers)
+    call print_headline(2, "Coordinates")
     call get_coordinates
 
     ! TODO make all these with nice functions
@@ -99,6 +109,7 @@ program main
 
 
     ! TODO print energy format
+    call print_headline(2,"Energy Calculation")
     call print_result("Nuclear Repulsion", 0.535345123D00, "au")
     call print_result("Electronic Energy", -0.53453123D00, "au")
     write(*,*) " -----------------------------"
