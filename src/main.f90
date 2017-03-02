@@ -35,8 +35,6 @@ program main
 
     character(20) :: method
 
-    call print_headline(1, "Psi Phi Quantum Mechanics")
-
     ! Arguments
     if(command_argument_count() == 0) then
         call print_usage
@@ -90,6 +88,8 @@ program main
         write(*,*) "error reading", filename
         stop
     end if
+
+    call print_headline(1, "Psi Phi Quantum Mechanics")
 
     call print_headline(2, "Calculation details")
     write(*,*) "using method ", method

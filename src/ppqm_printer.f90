@@ -22,6 +22,8 @@ contains
         write(stdout, "(a)") "-d, --debug           enable debug mode"
         write(stdout, "(a)")
 
+        return
+
     end subroutine print_usage
 
 
@@ -31,19 +33,19 @@ contains
 
         implicit none
 
-        write(stdout, "(a)")
         write(stdout, "(a)") "Psi Phi Quantum Mechanics (PPQM)"
         write(stdout, "(a)")
-        write(stdout, "(a)") "www.ppqm.org"
-        write(stdout, "(a)")
-        write(stdout, "(a)") "github.com/ppqm/ppqm"
-        write(stdout, "(2a)") "Version: ", "2016-08-11"
-        write(stdout, "(2a)") "Tag: ", "0.2"
-        write(stdout, "(2a)") "Commit: ", "ab48980f31"
+        write(stdout, "(a)") "Source Code: github.com/ppqm/ppqm"
+        write(stdout, "(a,x,a)") "Version Tag:", "1.2.1"
+        write(stdout, "(a,x,a)") "Commit Hash:", "4ba674c"
         write(stdout, "(a)")
         write(stdout, "(a)") "Cite:"
         write(stdout, "(a)") "See log file for the calculation specific reference"
         write(stdout, "(a)")
+        write(stdout, "(a)") "Anything else? Read more at www.ppqm.org"
+        write(stdout, "(a)")
+
+        return
 
     end subroutine
 
@@ -213,7 +215,7 @@ contains
         double precision, dimension(rows,cols) :: matrix
 
         do i = 1, rows
-            write(stdout, "(10f10.5)")  matrix(i,1:cols)
+            write(stdout, "(10f12.6)")  matrix(i,1:cols)
         end do
 
     end subroutine
@@ -234,7 +236,7 @@ contains
         do i = 1, rows
             idx = (i*i+i)/2
             do j = idx-i+1, idx
-                write(stdout, "(10f10.5)", advance='no')  matrix(j)
+                write(stdout, "(10f12.6)", advance='no')  matrix(j)
             end do
             ! next line
             write(stdout, "(a)")
