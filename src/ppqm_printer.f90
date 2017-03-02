@@ -63,6 +63,33 @@ contains
 
     end subroutine
 
+    subroutine print_hr()
+
+        use, intrinsic :: iso_fortran_env, only: stdout=>output_unit, stderr=>output_unit
+
+        implicit none
+        character :: msg(35)
+
+        msg = repeat("-", 35)
+
+        write(stdout, "(4x,35a)") msg
+
+        return
+
+    end subroutine
+
+    subroutine print_br()
+
+        use, intrinsic :: iso_fortran_env, only: stdout=>output_unit, stderr=>output_unit
+
+        implicit none
+
+        write(stdout, "(a)")
+
+        return
+
+    end subroutine
+
     subroutine print_string(msg)
 
         use, intrinsic :: iso_fortran_env, only: stdout=>output_unit, stderr=>output_unit
@@ -89,7 +116,7 @@ contains
 
         write(prtmsg, '(a20)') msg
 
-        write(stderr, "(a20,f10.6,1x,a)") adjustl(prtmsg), value, unit
+        write(stderr, "(4x,a20,f15.6,1x,a)") adjustl(prtmsg), value, unit
 
         return
 

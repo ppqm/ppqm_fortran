@@ -1,13 +1,20 @@
 program main
 
-    use printer, only: print_usage, &
-                    print_error, &
-                    print_version, &
-                    print_result, &
-                    print_string, &
-                    print_headline
+    use printer, only: &
+        print_usage, &
+        print_error, &
+        print_version, &
+        print_result, &
+        print_string, &
+        print_hr, &
+        print_br, &
+        print_headline
 
-    use ini_reader, only: ini_set_filename, ini_get_value, ini_get_structure
+    use ini_reader, only: &
+        ini_set_filename, &
+        ini_get_value, &
+        ini_get_structure
+
     use mod_coordinates, only: get_coordinates
 
     implicit none
@@ -19,12 +26,12 @@ program main
 
     character(len=64) :: arg
 
-    logical error
-    logical debug
-    logical exists
-    logical skip
+    logical :: error
+    logical :: debug
+    logical :: exists
+    logical :: skip
 
-    integer i
+    integer :: i
 
     character(20) :: method
 
@@ -112,24 +119,16 @@ program main
     call print_headline(2,"Energy Calculation")
     call print_result("Nuclear Repulsion", 0.535345123D00, "au")
     call print_result("Electronic Energy", -0.53453123D00, "au")
-    write(*,*) " -----------------------------"
-    call print_result("Total Energy", 0.000005123D00, "au")
-
-    write(*,*)
-
-    ! After  8 SCF cycles, final energy is
-    !
-    ! Nuclear Repulsion          0.535345123 au
-    ! Electronic Energy         -5.453453544 au
-    ! Solvation Energy          -0.004454532 au
-    ! Dispersion Correction     -0.000543523 au
-    ! Hydrogen Bond Correction  -0.000043234 au
-    ! -----------------------------------------
-    ! Total Energy (au)         -5.054354354 au
-    ! Total Energy (kcal)    -3171.652846325 kcal/mol
-
-    ! Heat of Formation      -4000.454323423 kcal/mol
-    ! Solvation Area           167.37        square angstroms 
+    call print_result("Solvation Energy", -0.24853123D00, "au")
+    call print_result("Dispersion correction", -0.0003123D00, "au")
+    call print_result("Hydrogen Bond", -0.1D00, "au")
+    call print_hr()
+    call print_result("Total Energy", -0.53434123D00, "au")
+    call print_result("Total Energy", -0.53434123D00*627.0d0, "kcal/mol")
+    call print_br()
+    call print_result("Heat of Formation", -235.434123D00, "kcal/mol")
+    call print_result("Solvation Surface", 55.0D00, "Square Aangstroem")
+    call print_br()
 
 
 end program
