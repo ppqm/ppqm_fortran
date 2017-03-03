@@ -1,5 +1,10 @@
 
-BUILDDIR = build
+SRC_DIR = src
+BUILD_DIR = build
+BIN_DIR = bin
+
+SRC_FILES = $(wildcard $(SRC_DIR)/*.f90)
+OBJ_FILES = $(addprefix $(BUILD_DIR)/,$(notdir $(SRC_FILES:.f90=.o)))
 
 OBJECTS = \
 		  $(BUILDDIR)/ini_reader.o \
@@ -10,35 +15,42 @@ OBJECTS = \
 
 FC = gfortran
 FCFLAGS =
-SRCDIR = src
-BINDIR = bin
 
-all: bin/ppqm
+all: directories bin/ppqm
 
 # Main fortrain binary
 
-bin/ppqm: $(OBJECTS)
-	$(FC) -o $(BINDIR)/ppqm $(OBJECTS)
+bin/ppqm: $(OBJ_FILES)
+	$(FC) -o $(BIN_DIR)/ppqm $(OBJ_FILES)
 
-$(BUILDDIR)/%.o: $(SRCDIR)/%.f90
-	cd $(BUILDDIR) && $(FC) ${FCFLAGS} -c ../$<
+# Dependencies
+$(SRC_DIR)/coordinates.f90: $(BUILD_DIR)/ppqm_printer.o $(BUILD_DIR)/ini_reader.o
 
-directories:
-	mkdir -p $(BUILDDIR)
-	mkdir -p $(BINDIR)
+# Compiler
+$(BUILD_DIR)/%.o: $(SRC_DIR)/%.f90
+	cd $(BUILD_DIR) && $(FC) ${FCFLAGS} -c ../$<
+
 
 # Python bindings
 
-python-binding: bin/ppqm.so
+python: $(OBJ_FILES) bin/ppqm.so
 
 bin/ppqm.so:
-	cd $(BUILDDIR) && \
-	f2py -c -m ppqm ../$(SRCDIR)/ppqm_constants.f90
-	mv $(BUILDDIR)/ppqm.so $(BINDIR)/ppqm.so
+	cd $(BUILD_DIR) && \
+	f2py -c -m ppqm ../$(SRC_DIR)/ppqm_constants.f90
+	mv $(BUILD_DIR)/ppqm.so $(BIN_DIR)/ppqm.so
 
 # Administration
 
 clean:
 	rm build/*.o
 	rm build/*.mod
+
+clean_all:
+	rm -r build
+	rm -r bin
+
+directories:
+	mkdir -p $(BUILD_DIR)
+	mkdir -p $(BIN_DIR)
 
