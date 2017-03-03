@@ -20,6 +20,7 @@ bin/ppqm: $(OBJ_FILES)
 	$(FC) -o $(BIN_DIR)/ppqm $(OBJ_FILES)
 
 # Dependencies
+$(SRC_DIR)/main.f90: $(BUILD_DIR)/ppqm_printer.o $(BUILD_DIR)/ini_reader.o $(BUILD_DIR)/coordinates.o
 $(SRC_DIR)/coordinates.f90: $(BUILD_DIR)/ppqm_printer.o $(BUILD_DIR)/ini_reader.o
 
 # Compiler
