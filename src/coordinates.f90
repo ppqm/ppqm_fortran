@@ -61,10 +61,6 @@ contains
             end do
         end do
 
-        write(*,*)
-        call print_triangular(distance_matrix, d)
-        write(*,*)
-
     end subroutine set_distance_matrix
 
 
