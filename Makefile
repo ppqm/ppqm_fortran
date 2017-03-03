@@ -16,7 +16,7 @@ OBJECTS = \
 FC = gfortran
 FCFLAGS =
 
-all: directories bin/ppqm
+all: build bin bin/ppqm
 
 # Main fortrain binary
 
@@ -50,7 +50,10 @@ clean_all:
 	rm -r build
 	rm -r bin
 
-directories:
-	mkdir -p $(BUILD_DIR)
+$(BIN_DIR):
 	mkdir -p $(BIN_DIR)
+
+$(BUILD_DIR):
+	mkdir -p $(BUILD_DIR)
+
 
