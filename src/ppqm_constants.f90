@@ -5,7 +5,7 @@ module constants
     double precision, parameter :: bohr2angstroem = 0.52917726d0
     double precision, parameter :: hartree2kcal = 627.509541d0
     double precision, parameter :: hartree2kj = 2625.5d0
-    double precision, parameter :: pi=3.1415926535d0
+    double precision, parameter :: pi = 4.0d0 * atan(1.0d0)
 
     ! Periodic table
     character(len=2) :: elements(94)
