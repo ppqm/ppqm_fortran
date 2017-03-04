@@ -34,7 +34,7 @@ $(BUILD_DIR)/%.o: $(SRC_DIR)/%.f90
 
 # Python bindings
 
-python: $(OBJ_FILES) bin/ppqm.so tests/ppqm.so
+python: ${BIN_DIR} ${BUILD_DIR} $(OBJ_FILES) bin/ppqm.so tests/ppqm.so
 
 bin/ppqm.so:
 	cd $(BUILD_DIR) && \
@@ -57,14 +57,14 @@ test: $(TEST_FILES)
 # Administration
 
 clean:
-	rm build/*.o
-	rm build/*.mod
-	rm tests/*.out
+	rm -f build/*.o
+	rm -f build/*.mod
+	rm -f tests/*.out
 
 clean_all:
-	rm -r build
-	rm -r bin
-	rm tests/*.out
+	rm -fr build
+	rm -fr bin
+	rm -f tests/*.out
 
 $(BIN_DIR):
 	mkdir -p $(BIN_DIR)
