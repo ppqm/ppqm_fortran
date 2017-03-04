@@ -34,12 +34,15 @@ $(BUILD_DIR)/%.o: $(SRC_DIR)/%.f90
 
 # Python bindings
 
-python: $(OBJ_FILES) bin/ppqm.so
+python: $(OBJ_FILES) bin/ppqm.so tests/ppqm.so
 
 bin/ppqm.so:
 	cd $(BUILD_DIR) && \
 	f2py -c -m ppqm ../$(SRC_DIR)/ppqm_constants.f90
 	mv $(BUILD_DIR)/ppqm.so $(BIN_DIR)/ppqm.so
+
+tests/ppqm.so:
+	ln -rs $(BIN_DIR)/ppqm.so tests/ppqm.so
 
 
 # Testing ppqm
@@ -57,6 +60,7 @@ tests/%.test:
 clean:
 	rm build/*.o
 	rm build/*.mod
+	rm tests/*.out
 
 clean_all:
 	rm -r build
