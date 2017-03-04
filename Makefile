@@ -64,6 +64,7 @@ clean:
 clean_all:
 	rm -r build
 	rm -r bin
+	rm tests/*.out
 
 $(BIN_DIR):
 	mkdir -p $(BIN_DIR)
