@@ -1,0 +1,18 @@
+#!/bin/bash
+
+test=$1
+
+py=${test%.*}.py
+
+out=${test%.*}.out
+
+python ${py} > ${out}
+
+if [ -s $out ]; then
+    result="FAILED"
+else
+    result="PASSED"
+fi
+
+printf "%-20s  %-10s\n" $out $result
+
