@@ -15,12 +15,12 @@ FC = gfortran
 FCFLAGS =
 
 
-all: build bin bin/ppqm
+all: $(BIN_DIR)/$(BIN)
 
 
 # Main fortrain binary
 
-$(BIN_DIR)/$(BIN): $(OBJ_FILES)
+$(BIN_DIR)/$(BIN): $(BUILD_DIR) $(OBJ_FILES) $(BIN_DIR)
 	$(FC) -o $@ $(OBJ_FILES)
 
 # Dependencies
@@ -34,14 +34,14 @@ $(BUILD_DIR)/%.o: $(SRC_DIR)/%.f90
 
 # Python bindings
 
-python: ${BIN_DIR} ${BUILD_DIR} $(OBJ_FILES) bin/ppqm.so tests/ppqm.so
+python: bin/ppqm.so tests/ppqm.so
 
-bin/ppqm.so:
+bin/ppqm.so: $(BUILD_DIR) $(BIN_DIR) $(OBJ_FILES)
 	cd $(BUILD_DIR) && \
 	f2py -c -m ppqm ../$(SRC_DIR)/ppqm_constants.f90
 	mv $(BUILD_DIR)/ppqm.so $(BIN_DIR)/ppqm.so
 
-tests/ppqm.so:
+tests/ppqm.so: bin/ppqm.so
 	ln -rs $(BIN_DIR)/ppqm.so tests/ppqm.so
 
 
@@ -65,6 +65,7 @@ clean_all:
 	rm -fr build
 	rm -fr bin
 	rm -f tests/*.out
+	rm -f tests/ppqm.so
 
 $(BIN_DIR):
 	mkdir -p $(BIN_DIR)
