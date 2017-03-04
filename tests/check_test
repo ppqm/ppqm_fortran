@@ -14,5 +14,5 @@ else
     result="PASSED"
 fi
 
-printf "%-20s  %-10s\n" $py $result
+printf "%-50s  %-10s\n" $py $result
 
