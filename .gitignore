@@ -2,8 +2,13 @@
 /bin
 /lib
 /builds
+/tests/*.out
 
+# fortran
 *.mod
 *.o
 *.so
+
+# python
+*.pyc
 
