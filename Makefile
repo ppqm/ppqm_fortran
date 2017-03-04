@@ -9,7 +9,7 @@ SRC_FILES = $(wildcard $(SRC_DIR)/*.f90)
 OBJ_FILES = $(addprefix $(BUILD_DIR)/,$(notdir $(SRC_FILES:.f90=.o)))
 
 TEST_PY_FILES = $(wildcard tests/*.py)
-TEST_FILES = $(addprefix tests/,$(notdir $(TEST_PY_FILES:.py=.test)))
+TEST_FILES = $(notdir $(TEST_PY_FILES:.py=.test))
 
 FC = gfortran
 FCFLAGS =
@@ -50,9 +50,8 @@ tests/ppqm.so:
 
 test: $(TEST_FILES)
 
-tests/%.test:
-	@python ${@:.test=.py} > ${@:.test=.out}
-	@./check_test ${@:.test=.out}
+%.test:
+	@./tests/check_test tests/${@}
 
 
 # Administration
