@@ -6,7 +6,7 @@ py=${test%.*}.py
 
 out=${test%.*}.out
 
-python ${py} > ${out}
+python ${py} > ${out} 2> ${out}
 
 if [ -s $out ]; then
     result="FAILED"
