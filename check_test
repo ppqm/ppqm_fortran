@@ -1,0 +1,13 @@
+#!/bin/bash
+
+file=$1
+test=${file%.*}.py
+
+if [ -s $file ]; then
+    result="FAILED"
+else
+    result="PASSED"
+fi
+
+printf "%-20s  %-10s\n" $test $result
+
