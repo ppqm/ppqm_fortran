@@ -30,7 +30,7 @@ module constants
             character(len=2) :: element
             integer :: j
 
-            call lower_case(element)
+            call string_lower(element)
 
             do j = 1, 94
                 if ( element == elements(j) ) then
@@ -42,15 +42,30 @@ module constants
         end function atom_index
 
 
-        subroutine lower_case(word)
-            character (len=*) , intent(in out) :: word
-            integer :: i, ic, nlen
-            nlen = len(word)
-            do i = 1, nlen
-                ic = ichar(word(i:i))
-                if (ic >= 65 .and. ic < 90) word(i:i) = char(ic+32)
+        subroutine string_upper(str)
+            character(*), intent(in out) :: str
+            integer :: i
+            do i = 1, len(str)
+                select case(str(i:i))
+                    case("a":"z")
+                    str(i:i) = achar(iachar(str(i:i))-32)
+                end select
             end do
-        end subroutine lower_case
+        end subroutine string_upper
+
+
+        subroutine string_lower(str)
+            character(*), intent(in out) :: str
+            integer :: i
+
+            do i = 1, len(str)
+                select case(str(i:i))
+                    case("A":"Z")
+                    str(i:i) = achar(iachar(str(i:i))+32)
+                end select
+            end do
+        end subroutine string_lower
+
 
 end module constants
 
