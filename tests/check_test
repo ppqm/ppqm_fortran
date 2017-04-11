@@ -10,9 +10,14 @@ python ${py} > ${out} 2> ${out}
 
 if [ -s $out ]; then
     result="FAILED"
+    color="\033[0;31m"
 else
     result="PASSED"
+    color="\033[0;32m"
 fi
 
-printf "%-50s  %-10s\n" $py $result
+color_off="\033[0m"
+
+# printf "%-50s  %-10s\n" $py $result
+printf "%-50s  $color%-10s$color_off\n" $py $result
 
